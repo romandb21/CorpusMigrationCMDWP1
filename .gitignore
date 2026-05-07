@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+.venv
+env/
+venv/
+
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.json
+*.pdf
+*.zip
+*.parquet
+*.feather
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.db
+*.sqlite
+*.dta
+*.do
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Credentials
+*credentials*
+*secret*
+*password*
+*.env
+
+# Dossiers de données
+**/documents/
+**/data/
+**/checkpoints/

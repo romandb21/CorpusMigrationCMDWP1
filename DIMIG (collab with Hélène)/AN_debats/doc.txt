@@ -1,0 +1,48 @@
+# Guide d'utilisation : scrapping_api_piste.py
+
+## Description
+Ce script permet de télécharger les débats parlementaires depuis l'API Legifrance (PISTE).
+
+## Prérequis
+1. Un fichier `Piste_Credentials.json` contenant vos identifiants API :
+   ```json
+   {
+     "CLIENT_ID": "votre_client_id",
+     "CLIENT_SECRET": "votre_client_secret"
+   }
+   ```
+Il est possible d'en récupérer, gratuitement, sur le site suivant : https://piste.gouv.fr/
+2. La librairie `requests` installée : `pip install requests`
+
+## Configuration
+Ouvrez le script et modifiez les paramètres dans la section MAIN (ligne ~415) :
+
+- **START_DATE** : Date de début (format "DD/MM/YYYY") - défaut : "01/01/2015"
+- **END_DATE** : Date de fin (format "DD/MM/YYYY") - défaut : "31/12/2025"
+- **TYPE_ASSEMBLEE** : 
+  - `"AN"` pour Assemblée Nationale uniquement
+  - `"SE"` pour Sénat uniquement
+  - `None` pour les deux assemblées
+- **MAX_DEBATS** : 
+  - `None` pour télécharger tous les débats
+  - Un nombre (ex: `100`) pour limiter le téléchargement (utile pour les tests)
+
+## Utilisation
+```bash
+python scrapping_api_piste.py
+```
+
+## Fonctionnalités
+- **Reprise automatique** : Si le script est interrompu, il reprend là où il s'est arrêté grâce aux checkpoints (sauvegarde tous les 200 débats)
+- **Retry automatique** : Les débats échoués sont enregistrés dans `failed_debats.json` et seront automatiquement réessayés au prochain lancement
+- **Double sauvegarde** :
+  - `liste_debats_XXXX_YYYY.json` : Métadonnées de tous les débats
+  - `corpus_debats_XXXX_YYYY.csv` : Contenu complet des débats (prêt pour l'analyse)
+
+## Sortie
+Les fichiers sont créés dans le dossier `data/` :
+- Métadonnées : JSON avec informations structurées (date, assemblée, législature, etc.)
+- Corpus : CSV avec le contenu textuel complet de chaque débat
+
+## Durée estimée
+Environ 1-2 heures pour récupérer ~3800 débats (2015-2025).

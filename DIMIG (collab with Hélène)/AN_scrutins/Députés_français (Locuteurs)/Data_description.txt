@@ -1,0 +1,58 @@
+------------------------------------------
+Info on deputies's terms ('mandats' in French) 
+and political bodies ('organes' in French) 
+since the 11th legislature (June 1997). 
+------------------------------------------
+
+Source: https://data.assemblee-nationale.fr/acteurs/historique-des-deputes
+
+
+---Sub-folder "0_raw"---
+
+This sub-folder contains all files extracted from the National Assembly website on deputies and their political groups. 
+
+
+---Sub-folder "1_extract_python"---
+
+The extract_data.ipynb python code extracts the .json files and creates csv files ('mandats.csv' and 'organes.csv') for MPs and the political bodies they belong to.
+
+
+---Sub-folder "2_cleaning_stata"---
+
+The do-file "build_dataset.do" uses the csv files from the previous sub-folders to create two .dta datasets :
+
+In the "mandats.dta" dataset, you can find all personal characteristics of the representatives, with their name, their birth place and time, and their occupation.
+You can also find the type of term ("mandat") they occupy, the dates of this term and where they were elected. 
+
+In the "organes.dta" dataset, you can find information about political bodies (the type of political body, the name and its description). 
+
+With the identifier, we can merge the 2 datasets and obtain information about which political body each representative belongs to.
+We cover the period February 1980 to July 2025. 
+
+
+---Sub-folder "3_cleaning_stata"---
+
+Contains the final dataset "mandats" (DTA and CSV formats). 
+
+Note: this dataset includes information on political bodies from "organes.dta" and on deputies' terms from "mandats.dta" that are built in Sub-folder #2. 
+
+
+
+
+Descriptive of 2_dataset/build_dataset.ipynb pipeline
+
+mandats.csv (raw)
+        ↓
+    [Cleaning Cells 4-17]
+        ↓
+{path2}/mandats.csv (Clean + PCS codes)
+        ↓
+        ├──→ organes.csv (raw)
+        │        ↓
+        │    [Cleaning Cell 20]
+        │        ↓
+        └──→ {path2}/organes.csv (clean)
+                 ↓
+            [merge Cell 21]
+                 ↓
+        {path3}/mandats.csv (FINAL)

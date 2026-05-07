@@ -1,0 +1,29 @@
+------------------------------------------
+Data on votes of the French Deputy Chamber [for migration policies] (since 2017: 15eme + 16eme legislatures)
+------------------------------------------
+
+Source: https://data.assemblee-nationale.fr/archives-xve/scrutins#	
+
+
+---Sub-folder "1_data_extraction"---
+
+For each legislature (15th and 16th):  
+
+	***"0_raw"*** 
+	This folder contains all the different files corresponding to the ballots of all MPs of the legislature in .json format, extracted from the National Assembly data website.
+
+	***"1_extract_python"***
+	The python code 'extract_data.ipynb' extracts the .json files from the previous folder and creates a .csv file 'scrutins.csv' which contains all ballots of the legislature in a single file.
+
+
+---Sub-folder "2_cleaning_stata"---
+
+The do-file 'build_dataset.do' uses the csv files of each legislature to clean them and create a .dta and .csv dataset, which we then merge with the "organes.dta" file (that you can find in the folder './Députés_français (Locuteurs)/2_cleaning_stata/', to obtain information about the political bodies of the MPs who voted.
+
+---Sub-folder "3_dataset"---
+
+This is were we store the final dataset 'scrutins.dta' (and scrutins.csv). We know, for each ballot, the date, the number of people voting (and the number of people voting for/against/ abstention/ not voting), the result of each vote (adopted/ rejected by the National Assembly) and the object of this given vote. 
+For each deputy, we know their vote: for/against/abstain. 
+For each deputy, we know their political affiliation and what this political group voted for this given ballot.
+MPs vote national laws, but are elected for a given geographic zone (circonscription).
+You can find the votes on immigration (by keyword search). 
